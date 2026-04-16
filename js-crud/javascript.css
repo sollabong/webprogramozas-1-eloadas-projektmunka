@@ -1,0 +1,68 @@
+.crud-form {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  align-items: center;
+}
+
+.crud-form input,
+.crud-form select {
+  flex: 1;
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: 4px;
+  min-width: 0;
+}
+
+.table-container {
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background-color: var(--secondary-background);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+#tudosTerulet {
+  padding-left: 24px;
+  width: 350px;
+}
+
+.btn-edit,
+.btn-delete {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 12px;
+  gap: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-right: 16px;
+}
+
+.btn-edit {
+  color: var(--primary);
+}
+.btn-delete {
+  color: #e53e3e;
+}
