@@ -1,0 +1,74 @@
+.scientist-card {
+  background: var(--secondary-background);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  box-shadow: var(--shadow);
+}
+
+.scientist-card:hover {
+  border: 1px solid var(--primary);
+  box-shadow: 0 4px 12px #63b8e69d;
+}
+
+.card-actions {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 4px;
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+
+.btn-icon.edit:hover {
+  color: var(--primary);
+}
+.btn-icon.delete:hover {
+  color: #e53e3e;
+}
+
+.avatar-placeholder {
+  width: 100px;
+  height: 100px;
+  background-color: var(--secondary-background);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  color: #868686;
+  font-size: 64px;
+}
+
+.card-info {
+  text-align: center;
+}
+
+.card-info h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.terulet-label {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--primary);
+  background-color: #ebf8ff;
+  padding: 2px 12px;
+  border-radius: 12px;
+  font-weight: 600;
+}
