@@ -1,0 +1,24 @@
+{
+  "name": "webprogramozas-1-eloadas-projektmunka",
+  "version": "1.0.0",
+  "description": "Beadandó projekt webprogramozás 1 előadás tárgyhoz - NJE GAMF mérnökinformatikus képzés",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sollabong/webprogramozas-1-eloadas-projektmunka.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/sollabong/webprogramozas-1-eloadas-projektmunka/issues"
+  },
+  "homepage": "https://github.com/sollabong/webprogramozas-1-eloadas-projektmunka#readme",
+  "devDependencies": {
+    "prettier": "^3.8.3"
+  }
+}
