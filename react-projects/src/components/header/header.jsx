@@ -5,25 +5,25 @@ const Header = () => {
       <nav>
         <ul>
           <li>
-            <a href="../index.html">Főoldal</a>
+            <a href="/index.html">Főoldal</a>
           </li>
           <li>
-            <a href="../javascript-crud/javascript.html">Javascript CRUD</a>
+            <a href="/js-crud/javascript.html">Javascript CRUD</a>
           </li>
           <li>
-            <a href="react.html">React CRUD</a>
+            <a href="/react-projects/react.html">React CRUD</a>
           </li>
           <li>
-            <a href="spa.html">SPA</a>
+            <a href="/react-projects/spa.html">SPA</a>
           </li>
           <li>
-            <a href="fetchapi.html">Fetch API</a>
+            <a href="/fetchapi/fetchapi.html">Fetch API</a>
           </li>
           <li>
-            <a href="axios.html">Axios CRUD</a>
+            <a href="/react-projects/axios.html">Axios CRUD</a>
           </li>
           <li>
-            <a href="../oojs/oojs.html">OOJS App</a>
+            <a href="/oojs/oojs.html">OOJS App</a>
           </li>
         </ul>
       </nav>
