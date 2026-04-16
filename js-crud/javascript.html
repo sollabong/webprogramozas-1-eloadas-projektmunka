@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1. feladat: Javascript + CRUD</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../style/style.css" />
+    <link rel="stylesheet" href="javascript.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Web programozás-1 Előadás Házi feladat</h1>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Főoldal</a></li>
+          <li><a href="javascript.html">Javascript CRUD</a></li>
+          <li><a href="../react-projects/react.html">React CRUD</a></li>
+          <li><a href="../react-projects/spa.html">SPA</a></li>
+          <li><a href="../fetchapi/fetchapi.html">Fetch API</a></li>
+          <li><a href="../react-projects/axios.html">Axios CRUD</a></li>
+          <li><a href="../oojs/oojs.html">OOJS App</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <h2>1. feladat: Javascript + CRUD</h2>
+
+        <div class="crud-form">
+          <input type="text" id="tudosNev" placeholder="Tudós neve" />
+          <select id="tudosTerulet">
+            <option value="" disabled selected>
+              -- Válassz tudományterületet --
+            </option>
+            <option value="természettudományok">természettudományok</option>
+            <option value="műszaki tudományok">műszaki tudományok</option>
+            <option value="bölcsésztudományok">bölcsésztudományok</option>
+            <option value="társadalomtudományok">társadalomtudományok</option>
+            <option value="orvostudományok">orvostudományok</option>
+            <option value="agrártudományok">agrártudományok</option>
+            <option value="hittudomány">hittudomány</option>
+            <option value="művészetek">művészetek</option>
+          </select>
+          <button onclick="handleSave()" id="saveBtn">Hozzáadás</button>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Név</th>
+                <th>Tudományterület</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="dataBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-names">
+          <span class="footer-name"
+            >Budai Lili <span class="footer-neptun">GVLRPX</span></span
+          >
+          <span class="footer-name"
+            >Soltész-Kéri Gábor <span class="footer-neptun">D0345Y</span></span
+          >
+        </div>
+        <div class="footer-copyright">
+          © 2026 Projektmunka • Web programozás-1
+        </div>
+      </div>
+    </footer>
+
+    <script src="./tudosok-data.js"></script>
+    <script src="./javascript.js"></script>
+  </body>
+</html>
