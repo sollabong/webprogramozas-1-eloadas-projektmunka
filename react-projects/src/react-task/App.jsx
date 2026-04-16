@@ -52,57 +52,63 @@ const App = () => {
   };
 
   return (
-    <div className="container">
-      <section className="form-section">
-        <form className="crud-form" onSubmit={handleSave}>
-          <input
-            type="text"
-            placeholder="Tudós neve"
-            value={nev}
-            onChange={(e) => setNev(e.target.value)}
-          />
-          <select value={terulet} onChange={(e) => setTerulet(e.target.value)}>
-            <option value="" disabled>
-              -- Terület választása --
-            </option>
-            <option value="természettudományok">természettudományok</option>
-            <option value="műszaki tudományok">műszaki tudományok</option>
-            <option value="bölcsésztudományok">bölcsésztudományok</option>
-            <option value="társadalomtudományok">társadalomtudományok</option>
-            <option value="orvostudományok">orvostudományok</option>
-          </select>
+    <section>
+      <h2>3. feladat: React + CRUD</h2>
+      <div className="container">
+        <section className="form-section">
+          <form className="crud-form" onSubmit={handleSave}>
+            <input
+              type="text"
+              placeholder="Tudós neve"
+              value={nev}
+              onChange={(e) => setNev(e.target.value)}
+            />
+            <select
+              value={terulet}
+              onChange={(e) => setTerulet(e.target.value)}
+            >
+              <option value="" disabled>
+                -- Terület választása --
+              </option>
+              <option value="természettudományok">természettudományok</option>
+              <option value="műszaki tudományok">műszaki tudományok</option>
+              <option value="bölcsésztudományok">bölcsésztudományok</option>
+              <option value="társadalomtudományok">társadalomtudományok</option>
+              <option value="orvostudományok">orvostudományok</option>
+            </select>
 
-          <div className="button-group">
-            <button type="submit" className="btn">
-              {editingScientist ? 'Mentés' : 'Hozzáadás'}
-            </button>
-            {editingScientist && (
-              <button
-                type="button"
-                className="btn-outline"
-                onClick={() => setEditingScientist(null)}
-              >
-                Mégse
+            <div className="button-group">
+              <button type="submit" className="btn">
+                {editingScientist ? 'Mentés' : 'Hozzáadás'}
               </button>
-            )}
-          </div>
-        </form>
-      </section>
+              {editingScientist && (
+                <button
+                  type="button"
+                  className="btn-outline"
+                  onClick={() => setEditingScientist(null)}
+                >
+                  Mégse
+                </button>
+              )}
+            </div>
+          </form>
+        </section>
 
-      <div className="card-grid">
-        {scientists.map((s) => (
-          <ScientistCard
-            key={s.id}
-            scientist={s}
-            onDelete={deleteScientist}
-            onEdit={(data) => {
-              setEditingScientist(data);
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-          />
-        ))}
+        <div className="card-grid">
+          {scientists.map((s) => (
+            <ScientistCard
+              key={s.id}
+              scientist={s}
+              onDelete={deleteScientist}
+              onEdit={(data) => {
+                setEditingScientist(data);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
