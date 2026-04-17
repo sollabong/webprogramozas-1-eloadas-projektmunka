@@ -67,14 +67,17 @@ const App = () => {
               value={terulet}
               onChange={(e) => setTerulet(e.target.value)}
             >
-              <option value="" disabled>
-                -- Terület választása --
-              </option>
-              <option value="természettudományok">természettudományok</option>
-              <option value="műszaki tudományok">műszaki tudományok</option>
-              <option value="bölcsésztudományok">bölcsésztudományok</option>
-              <option value="társadalomtudományok">társadalomtudományok</option>
-              <option value="orvostudományok">orvostudományok</option>
+              <option value="" disabled selected>
+              -- Válassz tudományterületet --
+            </option>
+            <option value="természettudományok">természettudományok</option>
+            <option value="műszaki tudományok">műszaki tudományok</option>
+            <option value="bölcsésztudományok">bölcsésztudományok</option>
+            <option value="társadalomtudományok">társadalomtudományok</option>
+            <option value="orvostudományok">orvostudományok</option>
+            <option value="agrártudományok">agrártudományok</option>
+            <option value="hittudomány">hittudomány</option>
+            <option value="művészetek">művészetek</option>
             </select>
 
             <div className="button-group">

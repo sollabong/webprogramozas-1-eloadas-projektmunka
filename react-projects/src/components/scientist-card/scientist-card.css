@@ -11,7 +11,7 @@
 
 .scientist-card:hover {
   border: 1px solid var(--primary);
-  box-shadow: 0 4px 12px #63b8e69d;
+  box-shadow: 0 4px 12px #aecac49d;
 }
 
 .card-actions {
@@ -48,7 +48,7 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 16px;
-  color: #868686;
+  color: #acacac;
   font-size: 64px;
 }
 
@@ -67,7 +67,7 @@
   margin-top: 8px;
   font-size: 0.8rem;
   color: var(--primary);
-  background-color: #ebf8ff;
+  background-color: #ebfffc;
   padding: 2px 12px;
   border-radius: 12px;
   font-weight: 600;
