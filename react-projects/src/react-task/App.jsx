@@ -1,115 +1,100 @@
 import React, { useState, useEffect } from 'react';
-import { tudosokData } from './tudosok-data';
-import ScientistCard from '../components/scientist-card/scientist-card';
+import { eloadasokData } from './eloadasok-data';
+import EventCard from '../components/event-card/event-card';
 import './app.css';
 
 const App = () => {
-  const [scientists, setScientists] = useState(tudosokData);
-  const [editingScientist, setEditingScientist] = useState(null);
-
-  const [nev, setNev] = useState('');
-  const [terulet, setTerulet] = useState('');
+  const [eloadasok, setEloadasok] = useState(
+    eloadasokData.map(e => ({ 
+      ...e, 
+      participated: false, 
+    }))
+  );
+  
+  const [editingEloadas, setEditingEloadas] = useState(null);
+  const [cim, setCim] = useState('');
+  const [ido, setIdo] = useState('');
 
   useEffect(() => {
-    if (editingScientist) {
+    if (editingEloadas) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setNev(editingScientist.nev);
-      setTerulet(editingScientist.terulet);
+      setCim(editingEloadas.cim);
+      const formattedDate = editingEloadas.ido ? editingEloadas.ido.replaceAll('.', '-') : '';
+      setIdo(formattedDate);
     } else {
-      setNev('');
-      setTerulet('');
+      setCim('');
+      setIdo('');
     }
-  }, [editingScientist]);
+  }, [editingEloadas]);
 
   const handleSave = (e) => {
     e.preventDefault();
-    if (!nev || !terulet) return;
+    if (!cim || !ido) return;
 
-    if (editingScientist) {
-      setScientists(
-        scientists.map((s) =>
-          s.id === editingScientist.id ? { ...s, nev, terulet } : s
-        )
-      );
-      setEditingScientist(null);
+    const displayDate = ido.replaceAll('-', '.');
+
+    if (editingEloadas) {
+      setEloadasok(eloadasok.map(el => 
+        el.id === editingEloadas.id ? { ...el, cim, ido: displayDate } : el
+      ));
+      setEditingEloadas(null);
     } else {
-      const newScientist = {
+      const newEloadas = {
         id: Date.now(),
-        nev: nev,
-        terulet: terulet,
+        cim,
+        ido: displayDate,
+        participated: false,
       };
-      setScientists([newScientist, ...scientists]);
+      setEloadasok([newEloadas, ...eloadasok]);
     }
-
-    setNev('');
-    setTerulet('');
+    setCim('');
+    setIdo('');
   };
 
-  const deleteScientist = (id) => {
-    if (window.confirm('Törlöd a kártyát?')) {
-      setScientists(scientists.filter((s) => s.id !== id));
-    }
+  const toggleParticipated = (id) => {
+    setEloadasok(eloadasok.map(el => 
+      el.id === id ? { ...el, participated: !el.participated } : el
+    ));
   };
 
   return (
-    <section>
-      <h2>3. feladat: React + CRUD</h2>
-      <div className="container">
-        <section className="form-section">
-          <form className="crud-form" onSubmit={handleSave}>
-            <input
-              type="text"
-              placeholder="Tudós neve"
-              value={nev}
-              onChange={(e) => setNev(e.target.value)}
-            />
-            <select
-              value={terulet}
-              onChange={(e) => setTerulet(e.target.value)}
-            >
-              <option value="" disabled selected>
-              -- Válassz tudományterületet --
-            </option>
-            <option value="természettudományok">természettudományok</option>
-            <option value="műszaki tudományok">műszaki tudományok</option>
-            <option value="bölcsésztudományok">bölcsésztudományok</option>
-            <option value="társadalomtudományok">társadalomtudományok</option>
-            <option value="orvostudományok">orvostudományok</option>
-            <option value="agrártudományok">agrártudományok</option>
-            <option value="hittudomány">hittudomány</option>
-            <option value="művészetek">művészetek</option>
-            </select>
+    <section className="container">
+      <h2>Előadások - React CRUD (3. feladat)</h2>
+      
+      <form className="form-section crud-form" onSubmit={handleSave}>
+        <input 
+          type="text" 
+          placeholder="Előadás címe" 
+          value={cim} 
+          onChange={(e) => setCim(e.target.value)} 
+          required
+        />
+        <input 
+          type="date" 
+          value={ido} 
+          onChange={(e) => setIdo(e.target.value)} 
+          required
+        />
+        <button className="btn" type="submit">
+          {editingEloadas ? 'Mentés' : 'Új előadás'}
+        </button>
+        {editingEloadas && (
+          <button className="btn-outline" type="button" onClick={() => setEditingEloadas(null)}>
+            Mégse
+          </button>
+        )}
+      </form>
 
-            <div className="button-group">
-              <button type="submit" className="btn">
-                {editingScientist ? 'Mentés' : 'Hozzáadás'}
-              </button>
-              {editingScientist && (
-                <button
-                  type="button"
-                  className="btn-outline"
-                  onClick={() => setEditingScientist(null)}
-                >
-                  Mégse
-                </button>
-              )}
-            </div>
-          </form>
-        </section>
-
-        <div className="card-grid">
-          {scientists.map((s) => (
-            <ScientistCard
-              key={s.id}
-              scientist={s}
-              onDelete={deleteScientist}
-              onEdit={(data) => {
-                setEditingScientist(data);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-            />
-          ))}
-        </div>
+      <div className="card-grid">
+        {eloadasok.map(el => (
+          <EventCard 
+            key={el.id} 
+            event={el} 
+            onEdit={setEditingEloadas}
+            onDelete={(id) => setEloadasok(eloadasok.filter(e => e.id !== id))}
+            onToggleParticipated={toggleParticipated}
+          />
+        ))}
       </div>
     </section>
   );

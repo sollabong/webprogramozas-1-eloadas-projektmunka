@@ -8,10 +8,10 @@ const Header = () => {
             <a href="/index.html">Főoldal</a>
           </li>
           <li>
-            <a href="/js-crud/javascript.html">Javascript CRUD</a>
+            <a href="/js-crud/javascript.html">Tudósok</a>
           </li>
           <li>
-            <a href="/react-projects/react.html">React CRUD</a>
+            <a href="/react-projects/react.html">Előadások</a>
           </li>
           <li>
             <a href="/react-projects/spa.html">SPA</a>
