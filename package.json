@@ -4,6 +4,7 @@
   "description": "Beadandó projekt webprogramozás 1 előadás tárgyhoz - NJE GAMF mérnökinformatikus képzés",
   "main": "index.js",
   "scripts": {
+    "setup-db": "C:/xampp/php/php.exe server/database-config.php",
     "format": "prettier --write ."
   },
   "repository": {
