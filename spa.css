@@ -1,0 +1,92 @@
+.spa-nav {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+/* Memória kártyák */
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.memory-card {
+  height: 80px;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+
+.memory-card.flipped {
+  background: white;
+  border: 2px solid var(--primary);
+  color: var(--text-primary);
+  transform: rotateY(180deg);
+}
+
+/* Szerencsekerék */
+.wheel-wrapper {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 40px auto;
+}
+
+.wheel-pointer {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 30px;
+  color: #e53e3e;
+  z-index: 10;
+}
+
+.wheel {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 5px solid var(--text-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.sector {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  left: 50%;
+  top: 50%;
+  transform-origin: 0 0;
+  transform: rotate(calc(var(--i) * (360deg / var(--total)))) skewY(calc(90deg - (360deg / var(--total))));
+  background: var(--secondary-background);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sector span {
+  transform: skewY(calc(-1 * (90deg - (360deg / var(--total))))) rotate(30deg);
+  position: absolute;
+  left: 20px;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.result-box {
+  margin-top: 20px;
+  padding: 15px;
+  background: #d1fae5;
+  border-radius: 8px;
+}
