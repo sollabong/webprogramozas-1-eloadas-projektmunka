@@ -15,4 +15,9 @@ export const api = {
   createEvent: (data) => axios.post(`${API_URL}?type=events`, data),
   updateEvent: (data) => axios.put(`${API_URL}?type=events`, data),
   deleteEvent: (id) => axios.delete(`${API_URL}?type=events&id=${id}`),
+
+  assign: (tudosId, eloadasId) =>
+    axios.post(`${API_URL}?type=assign`, { tudosId, eloadasId }),
+  unassign: (tId, eId) =>
+    axios.delete(`${API_URL}?type=assign&tId=${tId}&eId=${eId}`),
 };

@@ -12,7 +12,9 @@ $method = $_SERVER['REQUEST_METHOD'];
 $type = $_GET['type'] ?? '';
 $id = isset($_GET['id']) ? intval($_GET['id']) : null;
 
-$table = ($type === 'events') ? 'eloadas' : 'tudos';
+$table = "";
+if ($type === 'events') $table = 'eloadas';
+if ($type === 'scientists') $table = 'tudos';
 
 switch($method) {
     case 'GET':
@@ -20,7 +22,28 @@ switch($method) {
             $stmt = $conn->prepare("SELECT * FROM $table WHERE id = ?");
             $stmt->bind_param("i", $id);
             $stmt->execute();
-            echo json_encode($stmt->get_result()->fetch_assoc());
+            $item = $stmt->get_result()->fetch_assoc();
+
+            if ($item) {
+                if ($type === 'scientists') {
+                    $sql = "SELECT e.* FROM eloadas e 
+                            JOIN kapcsolo k ON e.id = k.eloadasid 
+                            WHERE k.tudosid = ?";
+                    $s = $conn->prepare($sql);
+                    $s->bind_param("i", $id);
+                    $s->execute();
+                    $item['connections'] = $s->get_result()->fetch_all(MYSQLI_ASSOC);
+                } else {
+                    $sql = "SELECT t.* FROM tudos t 
+                            JOIN kapcsolo k ON t.id = k.tudosid 
+                            WHERE k.eloadasid = ?";
+                    $s = $conn->prepare($sql);
+                    $s->bind_param("i", $id);
+                    $s->execute();
+                    $item['connections'] = $s->get_result()->fetch_all(MYSQLI_ASSOC);
+                }
+            }
+            echo json_encode($item);
         } else {
             $result = $conn->query("SELECT * FROM $table ORDER BY id DESC");
             echo json_encode($result->fetch_all(MYSQLI_ASSOC));
@@ -29,14 +52,22 @@ switch($method) {
 
     case 'POST':
         $data = json_decode(file_get_contents("php://input"), true);
-        if ($type === 'events') {
+        
+        if ($type === 'assign') {
+            $stmt = $conn->prepare("INSERT IGNORE INTO kapcsolo (tudosid, eloadasid) VALUES (?, ?)");
+            $stmt->bind_param("ii", $data['tudosId'], $data['eloadasId']);
+            if($stmt->execute()) echo json_encode(["success" => true]);
+        } 
+        else if ($type === 'events') {
             $stmt = $conn->prepare("INSERT INTO eloadas (cim, ido) VALUES (?, ?)");
             $stmt->bind_param("ss", $data['cim'], $data['ido']);
-        } else {
+            if($stmt->execute()) echo json_encode(["success" => true, "id" => $conn->insert_id]);
+        } 
+        else {
             $stmt = $conn->prepare("INSERT INTO tudos (nev, terulet) VALUES (?, ?)");
             $stmt->bind_param("ss", $data['nev'], $data['terulet']);
+            if($stmt->execute()) echo json_encode(["success" => true, "id" => $conn->insert_id]);
         }
-        if($stmt->execute()) echo json_encode(["success" => true, "id" => $conn->insert_id]);
         break;
 
     case 'PUT':
@@ -52,11 +83,16 @@ switch($method) {
         break;
 
     case 'DELETE':
-        if ($id) {
+        if ($type === 'assign') {
+            $tId = intval($_GET['tId']);
+            $eId = intval($_GET['eId']);
+            $stmt = $conn->prepare("DELETE FROM kapcsolo WHERE tudosid = ? AND eloadasid = ?");
+            $stmt->bind_param("ii", $tId, $eId);
+        } else if ($id) {
             $stmt = $conn->prepare("DELETE FROM $table WHERE id = ?");
             $stmt->bind_param("i", $id);
-            if($stmt->execute()) echo json_encode(["success" => true]);
         }
+        if(isset($stmt) && $stmt->execute()) echo json_encode(["success" => true]);
         break;
 }
 
