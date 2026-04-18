@@ -15,6 +15,8 @@ const App = () => {
 
   const [searchTerm, setSearchTerm] = useState('');
 
+  const [assignId, setAssignId] = useState('');
+
   const loadData = async () => {
     try {
       const eRes = await api.getAllEvents();
@@ -46,13 +48,14 @@ const App = () => {
     }
   }, [editingItem, activeTab]);
 
-  const filteredEvents = eloadasok.filter(el => 
+  const filteredEvents = eloadasok.filter((el) =>
     el.cim.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const filteredScientists = tudosok.filter(sc => 
-    sc.nev.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    sc.terulet.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredScientists = tudosok.filter(
+    (sc) =>
+      sc.nev.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      sc.terulet.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleSave = async (e) => {
@@ -90,6 +93,32 @@ const App = () => {
       loadData();
     } catch (err) {
       alert('Hiba a törlésnél!', err);
+    }
+  };
+
+  const handleAssign = async () => {
+    if (!assignId) return;
+    try {
+      const tId = activeTab === 'scientists' ? editingItem.id : assignId;
+      const eId = activeTab === 'events' ? editingItem.id : assignId;
+      await api.assign(tId, eId);
+      setAssignId('');
+      loadData();
+      alert('Sikeres hozzárendelés!');
+    } catch (err) {
+      alert('Hiba a hozzárendelésnél!', err);
+    }
+  };
+
+  const handleEditClick = async (item) => {
+    try {
+      const res =
+        activeTab === 'events'
+          ? await api.getEvent(item.id)
+          : await api.getScientist(item.id);
+      setEditingItem(res.data);
+    } catch (err) {
+      console.error('Hiba a részletek lekérésekor', err);
     }
   };
 
@@ -174,19 +203,89 @@ const App = () => {
               )}
             </div>
           </form>
+          {editingItem && (
+            <div className="assignment-section">
+              <h3>
+                {activeTab === 'scientists'
+                  ? 'Hozzárendelt előadások'
+                  : 'Hozzárendelt tudósok'}
+              </h3>
+              <ul className="connection-list">
+                {editingItem.connections?.map((conn) => (
+                  <li key={conn.id}>
+                    <span>
+                      {activeTab === 'scientists' ? conn.cim : conn.nev}
+                    </span>
+                    <button
+                      className="btn-delete-small"
+                      onClick={async () => {
+                        const tId =
+                          activeTab === 'scientists' ? editingItem.id : conn.id;
+                        const eId =
+                          activeTab === 'events' ? editingItem.id : conn.id;
+                        await api.unassign(tId, eId);
+                        handleEditClick(editingItem);
+                      }}
+                    >
+                      <i className="fa-solid fa-unlink"></i>
+                    </button>
+                  </li>
+                ))}
+                {(!editingItem.connections ||
+                  editingItem.connections.length === 0) && (
+                  <li className="empty">Nincs még hozzárendelés.</li>
+                )}
+              </ul>
+              <div className="assign-controls">
+                <select
+                  value={assignId}
+                  onChange={(e) => setAssignId(e.target.value)}
+                >
+                  <option value="">-- Válassz a listából --</option>
+                  {activeTab === 'scientists'
+                    ? eloadasok.map((e) => (
+                        <option key={e.id} value={e.id}>
+                          {e.cim}
+                        </option>
+                      ))
+                    : tudosok.map((t) => (
+                        <option key={t.id} value={t.id}>
+                          {t.nev}
+                        </option>
+                      ))}
+                </select>
+                <button
+                  className="btn btn-primary"
+                  onClick={async () => {
+                    await handleAssign();
+                    handleEditClick(editingItem);
+                  }}
+                >
+                  Hozzáadás
+                </button>
+              </div>
+            </div>
+          )}
         </section>
 
         <section>
           <div className="search-bar">
             <i className="fa-solid fa-magnifying-glass"></i>
-            <input 
-              type="text" 
-              placeholder={activeTab === 'events' ? "Keresés az előadások között..." : "Keresés név vagy terület alapján..."}
+            <input
+              type="text"
+              placeholder={
+                activeTab === 'events'
+                  ? 'Keresés az előadások között...'
+                  : 'Keresés név vagy terület alapján...'
+              }
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             {searchTerm && (
-              <button className="clear-search" onClick={() => setSearchTerm('')}>
+              <button
+                className="clear-search"
+                onClick={() => setSearchTerm('')}
+              >
                 <i className="fa-solid fa-xmark"></i>
               </button>
             )}
@@ -213,7 +312,7 @@ const App = () => {
               ))}
         </div>
 
-        {((activeTab === 'events' && filteredEvents.length === 0) || 
+        {((activeTab === 'events' && filteredEvents.length === 0) ||
           (activeTab === 'scientists' && filteredScientists.length === 0)) && (
           <div className="no-results">
             <i className="fa-solid fa-face-frown"></i>
