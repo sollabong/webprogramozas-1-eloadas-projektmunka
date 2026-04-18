@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <title>5. feladat - Fetch API CRUD</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../style/style.css" />
+    <link rel="stylesheet" href="../js-crud/javascript.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Web programozás-1 Előadás Házi feladat</h1>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Főoldal</a></li>
+          <li><a href="../js-crud/javascript.html">Tudósok</a></li>
+          <li><a href="../react-projects/react.html">Előadások</a></li>
+          <li><a href="../react-projects/spa.html">SPA</a></li>
+          <li><a href="fetchapi.html">Fetch API</a></li>
+          <li><a href="../react-projects/axios.html">Axios CRUD</a></li>
+          <li><a href="../oojs/oojs.html">OOJS App</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section id="fetch-app" class="container">
+        <h2>Tudósok kezelése (Fetch API + PHP)</h2>
+
+        <div class="crud-form">
+          <input type="text" id="f-nev" placeholder="Név" />
+          <select id="f-terulet">
+            <option value="" disabled selected>
+              -- Válassz tudományterületet --
+            </option>
+            <option value="természettudományok">természettudományok</option>
+            <option value="műszaki tudományok">műszaki tudományok</option>
+            <option value="bölcsésztudományok">bölcsésztudományok</option>
+            <option value="társadalomtudományok">társadalomtudományok</option>
+            <option value="orvostudományok">orvostudományok</option>
+            <option value="agrártudományok">agrártudományok</option>
+            <option value="hittudomány">hittudomány</option>
+            <option value="művészetek">művészetek</option>
+          </select>
+          <button id="f-save-btn" onclick="saveTudos()">Hozzáadás</button>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Név</th>
+                <th>Terület</th>
+                <th>Műveletek</th>
+              </tr>
+            </thead>
+            <tbody id="f-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="footer-content">
+        <div class="footer-names">
+          <span class="footer-name"
+            >Budai Lili <span class="footer-neptun">GVLRPX</span></span
+          >
+          <span class="footer-name"
+            >Soltész-Kéri Gábor <span class="footer-neptun">D0345Y</span></span
+          >
+        </div>
+        <div class="footer-copyright">
+          © 2026 Projektmunka • Web programozás-1
+        </div>
+      </div>
+    </footer>
+    <script src="fetchapi.js"></script>
+  </body>
+</html>

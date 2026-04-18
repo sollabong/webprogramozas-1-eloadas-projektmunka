@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <title>7. feladat - OOJS Grafikus App</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../style/style.css" />
+    <style>
+      canvas {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        cursor: crosshair;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Web programozás-1 Előadás Házi feladat</h1>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Főoldal</a></li>
+          <li><a href="../js-crud/javascript.html">Tudósok</a></li>
+          <li><a href="../react-projects/react.html">Előadások</a></li>
+          <li><a href="../react-projects/spa.html">SPA</a></li>
+          <li><a href="../fetchapi/fetchapi.html">Fetch API</a></li>
+          <li><a href="../react-projects/axios.html">Axios CRUD</a></li>
+          <li><a href="oojs.html">OOJS App</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <div class="container">
+          <h2>OOJS: Interaktív Tudomány-Részecskék</h2>
+          <p>Kattints a vászonra új részecskék létrehozásához!</p>
+          <canvas id="canvas"></canvas>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-names">
+          <span class="footer-name"
+            >Budai Lili <span class="footer-neptun">GVLRPX</span></span
+          >
+          <span class="footer-name"
+            >Soltész-Kéri Gábor <span class="footer-neptun">D0345Y</span></span
+          >
+        </div>
+        <div class="footer-copyright">
+          © 2026 Projektmunka • Web programozás-1
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      class BaseParticle {
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+          this.size = Math.random() * 20 + 10;
+          this.color = '#2fdab4';
+        }
+
+        drawBase(ctx) {
+          ctx.fillStyle = this.color;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      class Particle extends BaseParticle {
+        constructor(x, y) {
+          super(x, y);
+          this.speedX = Math.random() * 3 - 1.5;
+          this.speedY = Math.random() * 3 - 1.5;
+        }
+
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+          if (this.size > 0.2) this.size -= 0.1;
+        }
+
+        draw(ctx) {
+          this.drawBase(ctx);
+        }
+      }
+
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = 800;
+      canvas.height = 400;
+      let particles = [];
+
+      canvas.addEventListener('click', (e) => {
+        for (let i = 0; i < 10; i++) {
+          const p = new Particle(e.offsetX, e.offsetY);
+          particles.push(p);
+        }
+      });
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((p, i) => {
+          p.update();
+          p.draw(ctx);
+          if (p.size <= 0.2) particles.splice(i, 1);
+        });
+        requestAnimationFrame(animate);
+      }
+      animate();
+    </script>
+  </body>
+</html>

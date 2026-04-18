@@ -5,7 +5,6 @@
   margin-bottom: 30px;
 }
 
-/* Memória kártyák */
 .memory-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -34,7 +33,6 @@
   transform: rotateY(180deg);
 }
 
-/* Szerencsekerék */
 .wheel-wrapper {
   position: relative;
   width: 300px;
@@ -68,7 +66,8 @@
   left: 50%;
   top: 50%;
   transform-origin: 0 0;
-  transform: rotate(calc(var(--i) * (360deg / var(--total)))) skewY(calc(90deg - (360deg / var(--total))));
+  transform: rotate(calc(var(--i) * (360deg / var(--total))))
+    skewY(calc(90deg - (360deg / var(--total))));
   background: var(--secondary-background);
   border: 1px solid var(--border);
   display: flex;
