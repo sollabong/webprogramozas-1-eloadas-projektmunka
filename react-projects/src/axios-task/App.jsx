@@ -13,6 +13,8 @@ const App = () => {
   const [input1, setInput1] = useState('');
   const [input2, setInput2] = useState('');
 
+  const [searchTerm, setSearchTerm] = useState('');
+
   const loadData = async () => {
     try {
       const eRes = await api.getAllEvents();
@@ -43,6 +45,15 @@ const App = () => {
       setInput2('');
     }
   }, [editingItem, activeTab]);
+
+  const filteredEvents = eloadasok.filter(el => 
+    el.cim.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredScientists = tudosok.filter(sc => 
+    sc.nev.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    sc.terulet.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -91,6 +102,7 @@ const App = () => {
           onClick={() => {
             setActiveTab('events');
             setEditingItem(null);
+            setSearchTerm('');
           }}
         >
           <i className="fa-solid fa-calendar-days"></i> Előadások
@@ -100,6 +112,7 @@ const App = () => {
           onClick={() => {
             setActiveTab('scientists');
             setEditingItem(null);
+            setSearchTerm('');
           }}
         >
           <i className="fa-solid fa-flask"></i> Tudósok
@@ -163,9 +176,26 @@ const App = () => {
           </form>
         </section>
 
+        <section>
+          <div className="search-bar">
+            <i className="fa-solid fa-magnifying-glass"></i>
+            <input 
+              type="text" 
+              placeholder={activeTab === 'events' ? "Keresés az előadások között..." : "Keresés név vagy terület alapján..."}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            {searchTerm && (
+              <button className="clear-search" onClick={() => setSearchTerm('')}>
+                <i className="fa-solid fa-xmark"></i>
+              </button>
+            )}
+          </div>
+        </section>
+
         <div className="card-grid">
           {activeTab === 'events'
-            ? eloadasok.map((el) => (
+            ? filteredEvents.map((el) => (
                 <DashboardEventCard
                   key={el.id}
                   event={el}
@@ -173,7 +203,7 @@ const App = () => {
                   onDelete={handleDelete}
                 />
               ))
-            : tudosok.map((sc) => (
+            : filteredScientists.map((sc) => (
                 <ScientistCard
                   key={sc.id}
                   scientist={sc}
@@ -182,6 +212,14 @@ const App = () => {
                 />
               ))}
         </div>
+
+        {((activeTab === 'events' && filteredEvents.length === 0) || 
+          (activeTab === 'scientists' && filteredScientists.length === 0)) && (
+          <div className="no-results">
+            <i className="fa-solid fa-face-frown"></i>
+            <p>Nincs a keresésnek megfelelő találat.</p>
+          </div>
+        )}
       </div>
     </section>
   );

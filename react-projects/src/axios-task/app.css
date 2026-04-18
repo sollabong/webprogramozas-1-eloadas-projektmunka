@@ -49,6 +49,62 @@ h2 {
   border-color: var(--primary);
   box-shadow: 0 0 0 2px var(--shadow);
 }
+.search-bar {
+  position: relative;
+  margin-bottom: 25px;
+  max-width: 100%;
+}
+
+.search-bar i.fa-magnifying-glass {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a0aec0;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 12px 40px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 8px var(--shadow);
+}
+
+.clear-search {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #a0aec0;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.clear-search:hover {
+  color: var(--primary);
+}
+
+.no-results {
+  text-align: center;
+  padding: 40px;
+  color: #718096;
+}
+
+.no-results i {
+  font-size: 40px;
+  margin-bottom: 15px;
+  display: block;
+}
 
 .card-grid {
   display: grid;
