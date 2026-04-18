@@ -1,8 +1,8 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db   = "mindentudas_db";
+$host = "sql304.infinityfree.com";
+$user = "if0_41697095";
+$pass = "LiliGabor26Nje";
+$db   = "if0_41697095_mindentudas_db";
 
 $conn = new mysqli($host, $user, $pass);
 if ($conn->connect_error) die(json_encode(["error" => "Kapcsolódási hiba"]));
