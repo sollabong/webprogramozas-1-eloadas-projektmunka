@@ -26,10 +26,7 @@
   border-color: #cbd5e0;
 }
 
-.year-label {
-  position: absolute;
-  top: 12px;
-  left: 12px;
+.event-date {
   background: var(--primary);
   color: white;
   padding: 4px 10px;

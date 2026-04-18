@@ -1,7 +1,6 @@
-import './event-card.css';
+import './dashboard-event-card.css';
 
-const EventCard = ({ event, onEdit, onDelete, onToggleParticipated }) => {
-  const evszam = event.ido ? event.ido.substring(0, 4) : 'N/A';
+const DashboardEventCard = ({ event, onEdit, onDelete }) => {
   const imageUrl = `https://picsum.photos/seed/${event.id}/300/200`;
 
   return (
@@ -22,19 +21,13 @@ const EventCard = ({ event, onEdit, onDelete, onToggleParticipated }) => {
           <i className="fa-solid fa-trash-can"></i>
         </button>
       </div>
-      <div className="year-label">{evszam}</div>
       <img src={imageUrl} alt={event.cim} className="event-card-image" />
       <div className="card-info">
         <h3>{event.cim}</h3>
       </div>
-      <button
-        className={`btn-participate ${event.participated ? 'active' : ''}`}
-        onClick={() => onToggleParticipated(event.id)}
-      >
-        {event.participated ? 'Ott voltam' : 'Részt vettem'}
-      </button>
+      <div className="event-date">{event.ido}</div>
     </div>
   );
 };
 
-export default EventCard;
+export default DashboardEventCard;
