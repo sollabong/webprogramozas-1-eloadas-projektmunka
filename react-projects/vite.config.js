@@ -15,8 +15,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         react: 'react.html',
-        // spa: 'spa.html',
-        // axios: 'axios.html',
+        spa: 'spa.html',
+        axios: 'axios.html',
       },
     },
   },
