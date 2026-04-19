@@ -51,6 +51,12 @@ h2 {
   box-shadow: 0 0 0 2px var(--shadow);
 }
 
+.form-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
 .assignment-section {
   margin-top: 20px;
   padding: 20px;
