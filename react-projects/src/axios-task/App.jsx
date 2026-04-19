@@ -298,7 +298,7 @@ const App = () => {
                 <DashboardEventCard
                   key={el.id}
                   event={el}
-                  onEdit={setEditingItem}
+                  onEdit={handleEditClick}
                   onDelete={handleDelete}
                 />
               ))
@@ -306,7 +306,7 @@ const App = () => {
                 <ScientistCard
                   key={sc.id}
                   scientist={sc}
-                  onEdit={setEditingItem}
+                  onEdit={handleEditClick}
                   onDelete={handleDelete}
                 />
               ))}
