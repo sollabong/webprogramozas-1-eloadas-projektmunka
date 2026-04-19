@@ -11,7 +11,7 @@ export default defineConfig({
       },
     },
     build: {
-      outDir: 'react-projects/dist',
+      outDir: '/dist',
       rollupOptions: {
         input: {
           react: 'react.html',
