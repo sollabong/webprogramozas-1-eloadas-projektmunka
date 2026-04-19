@@ -1,5 +1,5 @@
 const API_URL =
-  'http://localhost/webprogramozas-1-eloadas-projektmunka/server/api.php';
+  'https://webprog-beadando-gabor-lili.page.gd/server/api.php';
 const FETCH_URL = `${API_URL}?type=scientists`;
 let editId = null;
 
